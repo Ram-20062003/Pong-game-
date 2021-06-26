@@ -10,16 +10,12 @@ import android.widget.TextView;
 import static Views.Customview.*;
 
 public class MainActivity extends AppCompatActivity {
-Button b;
-int p=0;
 Customview customview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         customview=new Customview(this);
-         //customview=(Customview)findViewById(R.id.customview);
-
     }
 
 }
