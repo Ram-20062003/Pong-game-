@@ -189,7 +189,7 @@ public class Customview extends View  {
              vy=-vy;
              p1++;
         }}
-        else if((cy+50>getHeight()-51&&cx==l-50)||(cy+50>getHeight()-51&&cx==l+350)){
+        else if((cy+50>getHeight()-51&&cx==l-50)||(cy+50>getHeight()-51&&cx==l+300)){
                 vx=-vx;
         }
         else
