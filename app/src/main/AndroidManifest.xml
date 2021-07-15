@@ -12,16 +12,16 @@
         android:roundIcon="@drawable/icon_pong"
         android:supportsRtl="true"
         android:theme="@style/Theme.Canvas1">
-        <activity android:name=".firstpage">
+        <activity android:name=".firstpage" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity2"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".MainActivity3" android:noHistory="true">
+        <activity android:name=".MainActivity2" android:screenOrientation="portrait"></activity>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".MainActivity3" android:noHistory="true" android:screenOrientation="portrait">
         </activity>
         <meta-data
             android:name="preloaded_fonts"
