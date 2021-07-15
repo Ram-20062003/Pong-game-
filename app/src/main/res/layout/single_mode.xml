@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".MainActivity2"
     android:orientation="vertical"
     android:background="@color/black">
-
-   <Views.Customview
-        android:id="@+id/customview"
+    <Views.MultiCustomview
+        android:id="@+id/multicustomview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
@@ -17,6 +16,5 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="16dp"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

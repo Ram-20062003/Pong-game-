@@ -7,38 +7,36 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.fonts.Font;
-import android.graphics.fonts.FontFamily;
+import android.media.MediaPlayer;
 import android.os.Build;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.example.canvas1.R;
-import com.google.android.material.slider.Slider;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.LogRecord;
 
-import static android.graphics.Color.*;
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.GREEN;
+import static android.graphics.Color.RED;
 
-public class Customview extends View  {
+public class Customview extends View{
     Rect rect,r,lr,br1,br2,box;
     Paint paint,paint_text1,paint_text2,paint_box;
-    int cx,cy,rad=25,l=300,b=0,vx=5,vy=5,pcheck=0,u=0,squarecolor,squaresize,p1=-1,width,height,score;
+    int change=1,b=0,vx=1,vy=1,pcheck=0,squarecolor,p1=-1,width,height,score;
+    public int sq=0;
+    float cx,cy,l=300f,s= 10.0f;
+    public int u=0;
+    Context context1;
     boolean value;
+    public MediaPlayer mediaPlayer;
     private static final int size=80;
-    Timer timer;
+    public Timer timer;
     Typeface typeface;
     public Customview(Context context) {
         super(context);
@@ -66,7 +64,6 @@ public class Customview extends View  {
         paint=new Paint(Paint.ANTI_ALIAS_FLAG);
         TypedArray typedArray=getContext().obtainStyledAttributes(set, R.styleable.Customview);
         squarecolor=typedArray.getColor(R.styleable.Customview_Square_color, BLACK);
-        squaresize=typedArray.getDimensionPixelSize(R.styleable.Customview_Square_size,size);
         typedArray.recycle();
         paint.setColor(squarecolor);
         paint.setTextSize(70);
@@ -93,6 +90,10 @@ public class Customview extends View  {
          paint_box.setStyle(Paint.Style.STROKE);
          paint.setTypeface(typeface);
          score=p1+1;
+         if(score==5*change) {
+             s = s + 1;
+             change++;
+         }
         canvas.drawText("SCORE="+String.valueOf(score),width,80,paint);
         if(pcheck==1) {
             br1.left=width-80;
@@ -111,7 +112,7 @@ public class Customview extends View  {
             canvas.drawRect(br1,paint);
             canvas.drawRect(br2,paint);
             canvas.drawText("Restart", (float) (((br1.left+br1.right))/(2.8)), (float) ((br1.top+br1.bottom)/(1.95)), paint_text1);
-            canvas.drawText("Exit", (float) (((br2.left+br2.right))/(2.3)), (float) ((br2.top+br2.bottom)/1.95), paint_text2);
+            canvas.drawText("HOME", (float) (((br2.left+br2.right))/(2.7)), (float) ((br2.top+br2.bottom)/1.95), paint_text2);
             canvas.drawText("YOUR RECORD SCORE:" + String.valueOf(score--), width - 200, height, paint);
         }
         r.left= (int) l;
@@ -145,8 +146,8 @@ public class Customview extends View  {
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            cx = cx + vx;
-                            cy = cy + vy;
+                            cx = cx + (vx*s);
+                            cy = cy + (vy*s);
                             postInvalidate();
                             collide();
                             runvar();
@@ -155,7 +156,7 @@ public class Customview extends View  {
                    return true;
                 }
             case MotionEvent.ACTION_MOVE: {
-                int x3= (int) event.getX();
+                float x3=event.getX();
                 if(x3+300<=getWidth()&&x3>=0)
                     l=x3;
                 postInvalidate();
@@ -183,14 +184,16 @@ public class Customview extends View  {
     }
 
     private void collide() {
-        if(cy+50>=r.top-2&&cy+50<=r.top)
+        if(cy>=r.top-(50+s)&&cy+50<=r.top+5)
         {
             if((cx>=r.left &&cx+50<=r.right)||(cx<=r.left&&cx+50>=r.left)||(cx<=r.right&&cx+50>r.right)){
              vy=-vy;
-             p1++;
-        }}
+           soundplay();
+
+            }}
         else if((cy+50>getHeight()-51&&cx==l-50)||(cy+50>getHeight()-51&&cx==l+300)){
-                vx=-vx;
+                vy=-vy;
+                soundplay();
         }
         else
         {
@@ -199,16 +202,31 @@ public class Customview extends View  {
 
     }
 
+   private void soundplay()  {
+       mediaPlayer=MediaPlayer.create(getContext(),R.raw.hit_slide);
+       mediaPlayer.start();
+    }
+    private void soundplaylose()  {
+        sq=1;
+        mediaPlayer=MediaPlayer.create(getContext(),R.raw.lose);
+        mediaPlayer.start();
+    }
     public void runvar()
     {
         if(cx+50>=getWidth()||cx<=0) {
+
             vx = -vx;
         }
       if(cy<=lr.bottom){
           vy=-vy;
+          soundplay();
+          p1++;
         }
-      if(cy+50>=getHeight()){
-           pcheck=1;
+      if(cy+50>=getHeight()&&cy<=getHeight()) {
+          soundplaylose();
+          pcheck=1;
+       /*   cx=getWidth()/2;
+          cy=getHeight()/2;*/
       }
     }
 }
