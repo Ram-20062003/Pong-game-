@@ -25,7 +25,7 @@ import static android.graphics.Color.BLACK;
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 
-public class Hard_mode extends View{
+public class Hard_mode_circle extends View{
     Rect rect,r,lr,br1,br2,box;
     Paint paint,paint_text1,paint_text2,paint_box;
     int change=1,lc=400,rc=50,b=0,vx=1,vy=1,pcheck=0,squarecolor,squaresize,p1=-1,width,height,score,tl,lives=3;
@@ -37,20 +37,20 @@ public class Hard_mode extends View{
     Context c=getContext();
     public Timer timer;
     Typeface typeface;
-    public Hard_mode(Context context) {
+    public Hard_mode_circle(Context context) {
         super(context);
 
         init(null);
     }
-    public Hard_mode(Context context, @Nullable AttributeSet attrs) {
+    public Hard_mode_circle(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
-    public Hard_mode(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public Hard_mode_circle(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
-    public Hard_mode (Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public Hard_mode_circle (Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
@@ -118,7 +118,7 @@ public class Hard_mode extends View{
         if(p1==10){
             lc=300;
             rc=40;
-       }
+        }
         if(p1==15)
         {
             lc=200;
@@ -129,7 +129,7 @@ public class Hard_mode extends View{
         }
         if(p1>=30){
             if(rc>=10)
-               rc=rc-5;
+                rc=rc-5;
         }
         r.left= (int) l;
         r.top=getHeight()-50;
@@ -142,11 +142,12 @@ public class Hard_mode extends View{
             tl=getWidth()/2-300;
             speed = (float) (getWidth()-300) / (getWidth() - 50);
             canvas.drawText("Tap  to  Play!!",cx/3+50,cy-100,paint_text1);}
-        rect.left=(int)cx;
+       /* rect.left=(int)cx;
         rect.top= (int)cy;
         rect.right=rect.left+rc;
         rect.bottom=rect.top+rc;
-        canvas.drawRect(rect,paint);
+        canvas.drawRect(rect,paint);*/
+        canvas.drawCircle(cx,cy,rc,paint);
         lr.left=tl;
         lr.top=120;
         lr.right=lr.left+300;
@@ -217,10 +218,10 @@ public class Hard_mode extends View{
         if(cy>=r.top-(rc+s)&&cy+rc<=r.top+5)
         {
             if((cy+rc>rect.top&&cy+rc<rect.top+rc)){
-                if((cx+rc>=r.left&&cx+rc<=r.left+rc/2)||(cx<=r.right&&cx>=r.right-10))
+                if((cx+rc>=r.left&&cx+rc<=r.left+rc/2)||(cx-rc<=r.right&&cx-rc>=r.right-10))
                     vx = -vx;
             }
-            if((cx>=r.left &&cx+rc<=r.right)||(cx<=r.left&&cx+rc>=r.left)||(cx<=r.right&&cx+rc>r.right)){
+            if((cx-rc>=r.left &&cx+rc<=r.right)||(cx-rc<=r.left&&cx+rc>=r.left)||(cx-rc<=r.right&&cx+rc>r.right)){
                 soundplay();
 
                 vy=-vy;
@@ -238,21 +239,21 @@ public class Hard_mode extends View{
     }
     public void runvar()
     {
-        if(cx+rc>=getWidth()||cx<=0) {
-                u=0;
+        if(cx+rc>=getWidth()||cx-rc<=0) {
+            u=0;
             vx = -vx;
         }
         if(cy+rc<=getHeight()){
-        if(cy<=lr.bottom){
-            if((cx>=lr.left &&cx<=lr.right)||(cx+rc>=lr.left&&cx+rc<=(lr.left+lr.right)/2)){
-                soundplay();
-                vy=-vy;
-                p1++;
-                if(s<15)
-                    s=s+1;
-            }
-        }}
-        if(cy+rc>=getHeight()&&cy<=getHeight()) {
+            if(cy-rc<=lr.bottom){
+                if((cx-rc>=lr.left &&cx<=lr.right)||(cx+rc>=lr.left&&cx+rc<=(lr.left+lr.right)/2)){
+                    soundplay();
+                    vy=-vy;
+                    p1++;
+                    if(s<15)
+                        s=s+1;
+                }
+            }}
+        if(cy+rc>=getHeight()&&cy+rc<=getHeight()+50) {
             lives--;
             soundplaylose();
             if(lives>0){

@@ -30,7 +30,7 @@ public class Customview extends View{
     Paint paint,paint_text1,paint_text2,paint_box;
     int change=1,b=0,vx=1,vy=1,pcheck=0,squarecolor,p1=-1,width,height,score;
     public int sq=0;
-    float cx,cy,l=300f,s= 10.0f;
+    float cx,cy,l=300f,s= 10.0f,d,cd=0,x3;
     public int u=0;
     Context context1;
     boolean value;
@@ -54,6 +54,8 @@ public class Customview extends View{
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
+
+
     public void init(@Nullable AttributeSet set){
         rect=new Rect();
         r=new Rect();
@@ -115,7 +117,7 @@ public class Customview extends View{
             canvas.drawText("HOME", (float) (((br2.left+br2.right))/(2.7)), (float) ((br2.top+br2.bottom)/1.95), paint_text2);
             canvas.drawText("YOUR RECORD SCORE:" + String.valueOf(score--), width - 200, height, paint);
         }
-        r.left= (int) l;
+        r.left= (int) (l);
         r.top=getHeight()-50;
         r.right=r.left+300;
         r.bottom=r.top+50;
@@ -142,6 +144,8 @@ public class Customview extends View{
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 b++;
+                d=event.getX();
+                cd=d;
                 if (b == 1 ) {
                     timer.schedule(new TimerTask() {
                         @Override
@@ -156,9 +160,12 @@ public class Customview extends View{
                    return true;
                 }
             case MotionEvent.ACTION_MOVE: {
-                float x3=event.getX();
-                if(x3+300<=getWidth()&&x3>=0)
-                    l=x3;
+
+                x3=event.getX();
+                if(l+x3-cd>0&&l+x3-cd<=getWidth()-300){
+                l=l+x3-cd;
+                cd=x3;}
+
                 postInvalidate();
                 return true;
             }
@@ -222,10 +229,10 @@ public class Customview extends View{
           soundplay();
           p1++;
         }
-      if(cy+50>=getHeight()&&cy<=getHeight()) {
+      if(cy+50>=getHeight()&&cy-10<=getHeight()) {
           soundplaylose();
-          pcheck=1;
-       /*   cx=getWidth()/2;
+          cy=getHeight()*10;
+          pcheck=1;/*   cx=getWidth()/2;
           cy=getHeight()/2;*/
       }
     }

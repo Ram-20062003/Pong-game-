@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:orientation="vertical"
     android:background="@color/black">
-   <Views.Customview
+    <Views.Customview_circle
         android:id="@+id/customview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

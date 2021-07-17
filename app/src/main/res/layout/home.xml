@@ -28,7 +28,7 @@
         android:id="@+id/button1"
         android:layout_width="219dp"
         android:layout_height="41dp"
-        android:layout_marginTop="296dp"
+        android:layout_marginTop="300dp"
         android:background="@drawable/style_button"
         android:fontFamily="@font/anonymous_pro"
         android:text="Wall mode"
@@ -55,21 +55,21 @@
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button4"
         android:layout_width="219dp"
         android:layout_height="41dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/style_button"
-        android:backgroundTint="#e60e15"
+        android:backgroundTint="#f71000"
         android:fontFamily="@font/anonymous_pro"
-        android:text="EXIT"
+        android:text="BACK"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.144" />
+        tools:targetApi="lollipop" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

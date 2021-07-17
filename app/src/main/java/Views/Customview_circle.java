@@ -25,35 +25,37 @@ import static android.graphics.Color.BLACK;
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 
-public class Hard_mode extends View{
+public class Customview_circle extends View{
     Rect rect,r,lr,br1,br2,box;
     Paint paint,paint_text1,paint_text2,paint_box;
-    int change=1,lc=400,rc=50,b=0,vx=1,vy=1,pcheck=0,squarecolor,squaresize,p1=-1,width,height,score,tl,lives=3;
-    float cx,cy,l=300f,s= 7.0f,speed,cd=0.0f,d,x3=0.0f;
+    int change=1,b=0,vx=1,vy=1,pcheck=0,squarecolor,p1=-1,width,height,score;
+    public int sq=0;
+    float cx,cy,l=300f,s= 10.0f,d,cd=0,x3;
     public int u=0;
+    Context context1;
     boolean value;
-    public MediaPlayer mediaPlayer1;
+    public MediaPlayer mediaPlayer;
     private static final int size=80;
-    Context c=getContext();
     public Timer timer;
     Typeface typeface;
-    public Hard_mode(Context context) {
+    public Customview_circle(Context context) {
         super(context);
-
         init(null);
     }
-    public Hard_mode(Context context, @Nullable AttributeSet attrs) {
+    public Customview_circle(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
-    public Hard_mode(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public Customview_circle(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
-    public Hard_mode (Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public Customview_circle(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
+
+
     public void init(@Nullable AttributeSet set){
         rect=new Rect();
         r=new Rect();
@@ -91,10 +93,10 @@ public class Hard_mode extends View{
         paint.setTypeface(typeface);
         score=p1+1;
         if(score==5*change) {
+            s = s + 1;
             change++;
         }
-        canvas.drawText("LEVEL="+String.valueOf(change),10,80,paint);
-        canvas.drawText("LIVES="+String.valueOf(lives),3*getWidth()/4-15,80,paint);
+        canvas.drawText("SCORE="+String.valueOf(score),width,80,paint);
         if(pcheck==1) {
             br1.left=width-80;
             br1.top=height+100;
@@ -113,50 +115,32 @@ public class Hard_mode extends View{
             canvas.drawRect(br2,paint);
             canvas.drawText("Restart", (float) (((br1.left+br1.right))/(2.8)), (float) ((br1.top+br1.bottom)/(1.95)), paint_text1);
             canvas.drawText("HOME", (float) (((br2.left+br2.right))/(2.7)), (float) ((br2.top+br2.bottom)/1.95), paint_text2);
-            canvas.drawText("YOUR RECORD LEVEL:" + String.valueOf(change), width - 200, height, paint);
+            canvas.drawText("YOUR RECORD SCORE:" + String.valueOf(score--), width - 200, height, paint);
         }
-        if(p1==10){
-            lc=300;
-            rc=40;
-       }
-        if(p1==15)
-        {
-            lc=200;
-        }
-        if(p1==20)
-        {
-            rc=30;
-        }
-        if(p1>=30){
-            if(rc>=10)
-               rc=rc-5;
-        }
-        r.left= (int) l;
+        r.left= (int) (l);
         r.top=getHeight()-50;
-        r.right=r.left+lc;
+        r.right=r.left+300;
         r.bottom=r.top+50;
         canvas.drawRect(r,paint);
         if(b==0){
             cx=getWidth()/2;
             cy=getHeight()/2;
-            tl=getWidth()/2-300;
-            speed = (float) (getWidth()-300) / (getWidth() - 50);
             canvas.drawText("Tap  to  Play!!",cx/3+50,cy-100,paint_text1);}
-        rect.left=(int)cx;
+        /*rect.left=(int)cx;
         rect.top= (int)cy;
-        rect.right=rect.left+rc;
-        rect.bottom=rect.top+rc;
-        canvas.drawRect(rect,paint);
-        lr.left=tl;
+        rect.right=rect.left+50;
+        rect.bottom=rect.top+50;
+        canvas.drawRect(rect,paint);*/
+        canvas.drawCircle(cx,cy,50,paint);
+        lr.left=0;
         lr.top=120;
-        lr.right=lr.left+300;
-        lr.bottom=lr.top+50;
+        lr.right=lr.left+getWidth();
+        lr.bottom=lr.top+20;
         canvas.drawRect(lr,paint);
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         value = super.onTouchEvent(event);
-
         timer=new Timer();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -169,8 +153,6 @@ public class Hard_mode extends View{
                         public void run() {
                             cx = cx + (vx*s);
                             cy = cy + (vy*s);
-                            if(cy<getHeight()/2)
-                                tl = (int) (cx * speed);
                             postInvalidate();
                             collide();
                             runvar();
@@ -179,8 +161,9 @@ public class Hard_mode extends View{
                     return true;
                 }
             case MotionEvent.ACTION_MOVE: {
+
                 x3=event.getX();
-                if(l+x3-cd>0&&l+x3-cd<=getWidth()-lc){
+                if(l+x3-cd>0&&l+x3-cd<=getWidth()-300){
                     l=l+x3-cd;
                     cd=x3;}
 
@@ -193,11 +176,7 @@ public class Hard_mode extends View{
                 if(pcheck==1&&bx>br1.left && bx<=br1.right&&by>=br1.top&&by<= br1.bottom)
                 {
                     pcheck=0;
-                    lives=3;
                     p1=-1;
-                    lc=400;
-                    rc=50;
-                    s=7;
                     cx=getWidth()/2;
                     cy=getHeight()/2;
                     postInvalidate();
@@ -213,58 +192,45 @@ public class Hard_mode extends View{
     }
 
     private void collide() {
-
-        if(cy>=r.top-(rc+s)&&cy+rc<=r.top+5)
+        if(cy>=r.top-(50+s)&&cy+50<=r.top+5)
         {
-            if((cy+rc>rect.top&&cy+rc<rect.top+rc)){
-                if((cx+rc>=r.left&&cx+rc<=r.left+rc/2)||(cx<=r.right&&cx>=r.right-10))
-                    vx = -vx;
-            }
-            if((cx>=r.left &&cx+rc<=r.right)||(cx<=r.left&&cx+rc>=r.left)||(cx<=r.right&&cx+rc>r.right)){
+            if((cx-50>=r.left &&cx+50<=r.right)||(cx-50<=r.left&&cx+50>=r.left)||(cx-50<=r.right&&cx+50>r.right)){
+                vy=-vy;
                 soundplay();
 
-                vy=-vy;
-
             }}
+        else
+        {
+            vx=vx;
+        }
+
     }
 
     private void soundplay()  {
-        mediaPlayer1=MediaPlayer.create(getContext(),R.raw.hit_slide);
-        mediaPlayer1.start();
+        mediaPlayer=MediaPlayer.create(getContext(),R.raw.hit_slide);
+        mediaPlayer.start();
     }
-    private void soundplaylose(){
-        mediaPlayer1=MediaPlayer.create(getContext(),R.raw.lose);
-        mediaPlayer1.start();
+    private void soundplaylose()  {
+        sq=1;
+        mediaPlayer=MediaPlayer.create(getContext(),R.raw.lose);
+        mediaPlayer.start();
     }
     public void runvar()
     {
-        if(cx+rc>=getWidth()||cx<=0) {
-                u=0;
+        if(cx+50>=getWidth()||cx-50<=0) {
+
             vx = -vx;
         }
-        if(cy+rc<=getHeight()){
-        if(cy<=lr.bottom){
-            if((cx>=lr.left &&cx<=lr.right)||(cx+rc>=lr.left&&cx+rc<=(lr.left+lr.right)/2)){
-                soundplay();
-                vy=-vy;
-                p1++;
-                if(s<15)
-                    s=s+1;
-            }
-        }}
-        if(cy+rc>=getHeight()&&cy<=getHeight()) {
-            lives--;
+        if(cy-50<=lr.bottom){
+            vy=-vy;
+            soundplay();
+            p1++;
+        }
+        if(cy+50>=getHeight()&&cy-60<=getHeight()) {
             soundplaylose();
-            if(lives>0){
-                cx=getWidth()/2;
-                cy=getHeight()/2;
-            }
-            if(lives==0)
-            {
-                cy=getHeight()*10;
-                pcheck=1;}
-
+            cy=getHeight()*10;
+            pcheck=1;/*   cx=getWidth()/2;
+          cy=getHeight()/2;*/
         }
     }
-
 }

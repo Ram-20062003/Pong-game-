@@ -29,10 +29,10 @@ import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 import static android.graphics.Color.WHITE;
 
-public class MultiCustomview extends View {
+public class MultiCustomview_circle extends View {
     Rect rect,r,lr,br1,br2,box,net,lr1,lr2,menu;
     Paint paint,paint_text1,paint_text2,paint_box,score_paint;
-    int p2=0,j=0,net_left=0,tchk=1,rein=0,b=0,sound=0,first=0,vx=1,vy=1,pcheck=0,squarecolor,squaresize,p1=0,width,height,score,tl;
+    int p2=0,re=0,reb=0,j=0,net_left=0,tchk=1,rein=0,b=0,sound=0,first=0,vx=1,vy=1,pcheck=0,squarecolor,squaresize,p1=0,width,height,score,tl;
     float cx,cy,l=300f,s=11.0f,speed,x3,cd=0.0f,d;
     public int u=0;
     boolean value;
@@ -41,23 +41,23 @@ public class MultiCustomview extends View {
     public Timer timer;
     Bitmap restart,home,crown ;
     Typeface typeface;
-    public MultiCustomview(Context context) {
+    public MultiCustomview_circle(Context context) {
         super(context);
 
         init(null);
     }
 
-    public MultiCustomview(Context context, @Nullable AttributeSet attrs) {
+    public MultiCustomview_circle(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public MultiCustomview(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MultiCustomview_circle(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
-    public MultiCustomview(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public MultiCustomview_circle(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
@@ -131,12 +131,10 @@ public class MultiCustomview extends View {
         crown=BitmapFactory.decodeResource(getResources(),R.drawable.crown);
         canvas.drawBitmap(crown,getWidth()/3-200,30,null);
         canvas.drawBitmap(crown,2*getWidth()/3+50,30,null);
-        if(pcheck==1||rein==1)
-        {
-            canvas.drawText("Tap to Start!!",getWidth()/6+100,getHeight()/2+100,paint_text1);
-            rein=0;
-        }
-
+      if(re==1&&reb==0)
+      {
+          canvas.drawText("Tap  to  Start!!", getWidth() / 6 + 100, getHeight()/2 - 100, paint_text1);
+      }
         r.left= (int) l;
         r.top=getHeight()-50;
         r.right=r.left+300;
@@ -154,15 +152,11 @@ public class MultiCustomview extends View {
                 canvas.drawText("Tap  to  Start!!", cx / 3 + 100, cy - 100, paint_text1);
                 first=1;
             }
-             u++;
+            u++;
         }
 //        canvas.drawText(String.valueOf(u),getWidth()/3+300,getHeight()/2-100,paint_text1);
 //        canvas.drawText(String.valueOf(b),getWidth()/3+50,getHeight()/2-100,paint_text1);
-        rect.left=(int)cx;
-        rect.top= (int)cy;
-        rect.right=rect.left+50;
-        rect.bottom=rect.top+50;
-        canvas.drawRect(rect,paint);
+       canvas.drawCircle(cx,cy,50,paint);
         if(tchk%2==0)
         {
             lr.left=tl;
@@ -176,12 +170,12 @@ public class MultiCustomview extends View {
         {
             if(j==0)
             {
-            lr1.left=tl;
-            lr1.top=180;
-            lr1.right=lr1.left+300;
-            lr1.bottom=lr1.top+50;
-            speed=(float)(getWidth()-500)/(getWidth()-50);
-            canvas.drawRect(lr1,paint);
+                lr1.left=tl;
+                lr1.top=180;
+                lr1.right=lr1.left+300;
+                lr1.bottom=lr1.top+50;
+                speed=(float)(getWidth()-500)/(getWidth()-50);
+                canvas.drawRect(lr1,paint);
             }
             if(j==1){
                 lr2.left=tl+175;
@@ -200,7 +194,7 @@ public class MultiCustomview extends View {
     private void soundplay()  {
         sound=1;
         mediaPlayer=MediaPlayer.create(getContext(),R.raw.hit_slide);
-      mediaPlayer.start();
+        mediaPlayer.start();
     }
     private void soundplaylose(){
         if(sound==1)
@@ -250,15 +244,15 @@ public class MultiCustomview extends View {
                 }
                 if(rx>10&&rx<200&&ry>10&&ry<150)
                 {
-                   // timer.cancel();
+                    // timer.cancel();
                     b=0;
                     u=0;
-                    rein=1;
+                    reb=1;
                     pcheck=0;
                     cx=getWidth()/2;
                     cy=getHeight()/2;
                 }
-                if(pcheck==1&& rx>0&&rx<getWidth()&&ry>0&&ry<getHeight()&&b!=0){
+                if(pcheck==1&& rx>getWidth()/6+100&&rx<getWidth()&&ry>getHeight()/2-300&&ry<getHeight()/2-100&&b!=0&&re==1){
                     cx=getWidth()/2;
                     cy=getHeight()/2;
                     s=11.0f;
@@ -266,16 +260,17 @@ public class MultiCustomview extends View {
                     pcheck=0;
                     vx=-vx;
                     vy=-vy;
+                    re=0;
                 }
                 return true;
             }
         }
         return value;
     }
-        private void collide() {
+    private void collide() {
         if(cy>=r.top-(50+s)&&cy+50<=r.top)
         {
-            if((cx>=r.left &&cx+50<=r.right)||(cx<=r.left&&cx+50>=r.left)||(cx<=r.right&&cx+50>r.right)){
+            if((cx-50>=r.left &&cx+50<=r.right)||(cx-50<=r.left&&cx+50>=r.left)||(cx-50<=r.right&&cx+50>r.right)){
                 vy=-vy;
                 soundplay();
                 tchk++;
@@ -304,25 +299,25 @@ public class MultiCustomview extends View {
     {
 
         int l_top,l_left,l_bottom ,l_right;
-        if(cx+50>=getWidth()||cx<=0) {
+        if(cx+50>=getWidth()||cx-50<=0) {
             vx = -vx;
 
         }
         if(tchk%2==0)
         {
-           l_top=lr.top;
-           l_bottom=lr.bottom;
-           l_right=lr.right;
-           l_left=lr.left;
+            l_top=lr.top;
+            l_bottom=lr.bottom;
+            l_right=lr.right;
+            l_left=lr.left;
 
         }
         else
         {
             if(j==0){
-            l_top=lr1.top;
-            l_bottom=lr1.bottom;
-            l_right=lr1.right;
-            l_left=lr1.left;}
+                l_top=lr1.top;
+                l_bottom=lr1.bottom;
+                l_right=lr1.right;
+                l_left=lr1.left;}
             else{
                 l_top=lr2.top;
                 l_bottom=lr2.bottom;
@@ -330,36 +325,39 @@ public class MultiCustomview extends View {
                 l_left=lr2.left;
             }
         }
-        if(cy<=l_bottom+s &&cy+20>=l_bottom){
+        if(cy-50<=l_bottom+s &&cy-30>=l_bottom){
 
 
-            if(cy>l_bottom&&cy<l_bottom+25) {
-                if((cx+50>=l_left&&cx+50<=l_left+25)||(cx+25<=l_right&&cx>=l_right-25))
-                vx = -vx;
+            if(cy-50>l_bottom&&cy-50<l_bottom+25) {
+                if((cx+50>=l_left&&cx+50<=l_left+25)||(cx-25<=l_right&&cx-50>=l_right-25))
+                    vx = -vx;
             }
-            if((cx>=l_left &&cx<=l_right)||(cx+50>=l_left&&cx+50<=(l_left+l_right)/2)){
-            vy=-vy;
+            if((cx-50>=l_left &&cx-50<=l_right)||(cx+50>=l_left&&cx+50<=(l_left+l_right)/2)){
+                vy=-vy;
                 soundplay();
-            if(s<20)
-                s=s+1;
-        }
+                if(s<20)
+                    s=s+1;
+            }
 
 
 
         }
-        if(cy<=0&&cy+50>=0){
+        if(cy-50<=0&&cy+50<=0&&cy+50>=-50){
             soundplaylose();
             if(pcheck==0)
                 p2++;
             pcheck=1;
-
+            re=1;
+            reb=0;
         }
         if(cy+50>=getHeight()&&cy<=getHeight()) {
             soundplaylose();
-            cy=getHeight()*10;
+
             if(pcheck==0)
-               p1++;
+                p1++;
             pcheck=1;
+            re=1;
+            reb=0;
         }
     }
 }
