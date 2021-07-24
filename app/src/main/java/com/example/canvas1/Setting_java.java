@@ -8,7 +8,10 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Setting_java extends AppCompatActivity {
-    Button b_circle,b_square,b_save,b_home;
+    Button b_circle;
+    Button b_square;
+    Button b_save;
+    Button b_home;
     public int choose=1;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -22,18 +25,27 @@ public class Setting_java extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 choose=2;
-                b_circle.setBackgroundResource(R.drawable.styling_setcircle);
-                b_square.setBackgroundResource(R.drawable.styling_square);
+
             }
         });
+
         b_square.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 choose=1;
-                b_square.setBackgroundResource(R.drawable.styling_setsquare);
-                b_circle.setBackgroundResource(R.drawable.styling_circle);
+
             }
         });
+       /* if(choose==2)
+        {
+            b_circle.setBackgroundResource(R.drawable.styling_setcircle);
+            b_square.setBackgroundResource(R.drawable.styling_square);
+        }
+        if(choose==1)
+        {
+            b_square.setBackgroundResource(R.drawable.styling_setsquare);
+            b_circle.setBackgroundResource(R.drawable.styling_circle);
+        }*/
         b_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

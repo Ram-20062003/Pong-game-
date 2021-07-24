@@ -12,6 +12,13 @@
         android:roundIcon="@drawable/icon_pong"
         android:supportsRtl="true"
         android:theme="@style/Theme.Canvas1">
+        <activity android:name=".Play_game" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".firstpage" android:screenOrientation="portrait">
 
         </activity>
@@ -23,13 +30,7 @@
         <activity android:name=".MainActivity_circle" android:screenOrientation="portrait"></activity>
         <activity android:name=".MainActivity2_circle" android:screenOrientation="portrait"></activity>
         <activity android:name=".MainActivity3_circle" android:screenOrientation="portrait"></activity>
-        <activity android:name=".Play_game" android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

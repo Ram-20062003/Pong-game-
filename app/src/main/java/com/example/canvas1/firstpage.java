@@ -61,7 +61,7 @@ public class firstpage extends AppCompatActivity {
         b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.exit(0);
+                throw new RuntimeException("Test Crash"); // Force a crash
             }
         });
     }

@@ -2,6 +2,8 @@ package Views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -27,11 +29,12 @@ import static android.graphics.Color.RED;
 
 public class Hard_mode_circle extends View{
     Rect rect,r,lr,br1,br2,box;
-    Paint paint,paint_text1,paint_text2,paint_box;
-    int change=1,lc=400,rc=50,b=0,vx=1,vy=1,pcheck=0,squarecolor,squaresize,p1=-1,width,height,score,tl,lives=3;
+    Paint paint,paint_text1,paint_text2,paint_box,paint_power;
+    int change=1,power=0,ppow=0,pthen=0,t=10,pcond=-1,click=2,lc=400,rc=50,b=0,vx=1,vy=1,pcheck=0,squarecolor,squaresize,p1=-1,width,height,score,tl,lives=3;
     float cx,cy,l=300f,s= 7.0f,speed,cd=0.0f,d,x3=0.0f;
     public int u=0;
     boolean value;
+    Bitmap bitmap_shield;
     public MediaPlayer mediaPlayer1;
     private static final int size=80;
     Context c=getContext();
@@ -74,6 +77,9 @@ public class Hard_mode_circle extends View{
         super.onDraw(canvas);
         width=getWidth()/3;
         height=getHeight()/3;
+        paint_power=new Paint();
+        paint_power.setColor(RED);
+        paint_power.setTextSize(30);
         paint_text1=new Paint();
         paint_text1.setColor(GREEN);
         paint_text1.setTextSize(90);
@@ -115,21 +121,40 @@ public class Hard_mode_circle extends View{
             canvas.drawText("HOME", (float) (((br2.left+br2.right))/(2.7)), (float) ((br2.top+br2.bottom)/1.95), paint_text2);
             canvas.drawText("YOUR RECORD LEVEL:" + String.valueOf(change), width - 200, height, paint);
         }
-        if(p1==10){
+        bitmap_shield= BitmapFactory.decodeResource(getResources(),R.drawable.shield);
+        canvas.drawBitmap(bitmap_shield,getWidth()-200,getHeight()/3,null);
+        if(pcond>=10&&pcond<15){
             lc=300;
             rc=40;
         }
-        if(p1==15)
+        if(pcond>=15&&pcond<20)
         {
             lc=200;
         }
-        if(p1==20)
-        {
+        if(pcond>=20&&pcond<30)
+        {  lc=200;
             rc=30;
         }
-        if(p1>=30){
+        if(pcond>=30){
+            lc=200;
             if(rc>=10)
                 rc=rc-5;
+        }
+        if(power==1){
+            l=0;
+            lc=getWidth();
+            if(ppow==5)
+            {
+                pthen=0;
+                lc=400;
+                rc=50;
+                power=0;
+            }
+        }
+        if(pthen>=5){
+            click=0;
+            canvas.drawText("READY",getWidth()-200,getHeight()/3+200,paint_power);
+
         }
         r.left= (int) l;
         r.top=getHeight()-50;
@@ -207,6 +232,14 @@ public class Hard_mode_circle extends View{
                 {
                     System.exit(0);
                 }
+                if(bx>=getWidth()-200&&bx<=getWidth()&&by>=getHeight()/3&&by<=getHeight()/3+200&&click==0)
+                {
+                    ppow=0;
+                    power=1;
+                    click=1;
+                    t=10;
+                    pthen=0;
+                }
                 return true;
         }
 
@@ -249,6 +282,13 @@ public class Hard_mode_circle extends View{
                     soundplay();
                     vy=-vy;
                     p1++;
+                    if(power==0){
+                        pcond++;
+                        pthen++;}
+                    else{
+                        ppow++;
+                        t--;}
+
                     if(s<15)
                         s=s+1;
                 }

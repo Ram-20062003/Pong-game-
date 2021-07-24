@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "357018438343",
+    "project_id": "pong-game-check",
+    "storage_bucket": "pong-game-check.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357018438343:android:33aa3d71ab7036b7874ce2",
+        "android_client_info": {
+          "package_name": "com.example.canvas1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357018438343-qlk2uamdn8ioom5p0a0ldvhg3ecvsd3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC26TJSpn2tT-tzoYErlZ2_BdTJSUcV1ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357018438343-qlk2uamdn8ioom5p0a0ldvhg3ecvsd3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

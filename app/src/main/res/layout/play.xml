@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/play_game">
+    android:background="@drawable/play_game"
+    tools:context=".Play_game">
 
     <Button
         android:id="@+id/play"
         android:layout_width="190dp"
         android:layout_height="53dp"
-        android:background="@color/material_on_surface_stroke"
+        android:background="@android:color/transparent"
         android:fontFamily="@font/faster_one"
         android:text="Play"
         android:textColor="#6CD806"
@@ -28,8 +29,8 @@
         android:layout_width="197dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:background="@color/material_on_surface_stroke"
-        android:backgroundTint="#f51505"
+        android:background="@android:color/transparent"
+        android:alpha="0.75"
         android:fontFamily="@font/faster_one"
         android:text="EXIT"
         android:textColor="#121111"

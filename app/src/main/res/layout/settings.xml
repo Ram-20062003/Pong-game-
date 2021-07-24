@@ -4,14 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/choice">
+    android:background="@drawable/choice"
+    android:id="@+id/settings"
+    tools:context=".Setting_java">
+
 
     <Button
         android:id="@+id/setting_square"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/styling_square"
-        android:fontFamily="@font/federant"
+        android:background="#0fed07"
+        android:fontFamily="@font/anonymous_pro"
+        android:textStyle="bold"
         android:text="Square"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,8 +29,9 @@
         android:id="@+id/setting_circle"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/styling_circle"
-        android:fontFamily="@font/finger_paint"
+        android:background="#fc0307"
+        android:fontFamily="@font/anonymous_pro"
+        android:textStyle="bold"
         android:text="Circle"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,6 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.469" />
+
 
     <TextView
         android:id="@+id/textView"
@@ -53,12 +59,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.323" />
 
+
     <Button
         android:id="@+id/save"
         android:layout_width="96dp"
         android:layout_height="56dp"
         android:layout_marginBottom="260dp"
-        android:background="@color/material_on_surface_stroke"
+        android:background="@android:color/transparent"
         android:fontFamily="@font/permanent_marker"
         android:text="ok"
         android:textColor="#02fa02"
@@ -75,7 +82,7 @@
         android:id="@+id/home1"
         android:layout_width="96dp"
         android:layout_height="56dp"
-        android:background="@color/material_on_surface_stroke"
+        android:background="@android:color/transparent"
         android:fontFamily="@font/permanent_marker"
         android:text="HOME"
         android:textColor="#f70019"
